@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static cn.io0288.ExcelTranslateTool.XML.Project.buildProject;
+
 public class ReadXMLUsingDOM {
-    public static void run(String path) {
+    public static Element get(String path) {
         File xmlFile = new File(path); // 替换为你的XML文件路径
         try {
             // 创建DocumentBuilderFactory实例
@@ -26,17 +28,14 @@ public class ReadXMLUsingDOM {
             doc.getDocumentElement().normalize();
 
             // 获取根元素
-            Element projectElement = doc.getDocumentElement();
-            System.out.println(projectElement.getTagName() + " name=" + projectElement.getAttribute("name"));
-            NodeList packageNodeList = projectElement.getChildNodes();
-            // 获取并打印所有子元素
-            foreachXMLPrint(packageNodeList);
+            return doc.getDocumentElement();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
-    // 获取并打印所有元素
+    // 打印所有元素
     public static void foreachXMLPrint(NodeList nodeList) {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node childNode = nodeList.item(i);
@@ -44,34 +43,25 @@ public class ReadXMLUsingDOM {
                 Element eElement = (Element) childNode;
 
                 if (eElement.getTagName().equals("Project") || eElement.getTagName().equals("Package")) {
-                    System.out.printf("\t%s name=\"%s\"%n", eElement.getTagName(), eElement.getAttribute("name"));
+                    System.out.printf("\t%s name=\"%s\"\n", eElement.getTagName(), eElement.getAttribute("name"));
                     foreachXMLPrint(eElement.getChildNodes());
                 } else if (eElement.getTagName().equals("Key")) {
-                    System.out.printf("\t\t%s ID=\"%s\"%n", eElement.getTagName(), eElement.getAttribute("ID"));
+                    // 语言Key
+                    System.out.printf("\t\t%s ID=\"%s\"\n", eElement.getTagName(), eElement.getAttribute("ID"));
                     foreachXMLPrint(eElement.getChildNodes());
                 } else {
-                    System.out.printf("\t\t\t%s\t=%s\t%n", eElement.getTagName(), eElement.getTextContent());
+                    // 语言Item
+                    System.out.printf("\t\t\t%s\t=%s\t\n", eElement.getTagName(), eElement.getTextContent());
                 }
             }
         }
     }
-    // 返回元素对象
-    public static void getXMLElement(NodeList nodeList) {
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node childNode = nodeList.item(i);
-            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) childNode;
+    // 根据元素对象构建数据实体类
+    public static Project getXMLElement(NodeList nodeList) {
+        // 获取父元素
+        Node parentNode = nodeList.item(0).getParentNode();
+        Element parentElement = (Element) parentNode;
 
-                if (eElement.getTagName().equals("Project") || eElement.getTagName().equals("Package")) {
-                    System.out.printf("\t%s name=\"%s\"%n", eElement.getTagName(), eElement.getAttribute("name"));
-                    foreachXMLPrint(eElement.getChildNodes());
-                } else if (eElement.getTagName().equals("Key")) {
-                    System.out.printf("\t\t%s ID=\"%s\"%n", eElement.getTagName(), eElement.getAttribute("ID"));
-                    foreachXMLPrint(eElement.getChildNodes());
-                } else {
-                    System.out.printf("\t\t\t%s\t=%s\t%n", eElement.getTagName(), eElement.getTextContent());
-                }
-            }
-        }
+        return buildProject(nodeList, parentElement);
     }
 }

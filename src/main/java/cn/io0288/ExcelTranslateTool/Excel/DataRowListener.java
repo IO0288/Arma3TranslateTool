@@ -3,6 +3,7 @@ package cn.io0288.ExcelTranslateTool.Excel;
 import cn.idev.excel.FastExcel;
 import cn.idev.excel.context.AnalysisContext;
 import cn.idev.excel.read.listener.ReadListener;
+import cn.io0288.ExcelTranslateTool.TranslateApi.BaiduTranslateApi;
 import com.alibaba.fastjson2.JSON;
 
 import java.util.ArrayList;

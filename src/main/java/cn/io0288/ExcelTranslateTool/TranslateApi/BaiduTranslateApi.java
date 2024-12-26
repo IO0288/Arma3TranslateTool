@@ -1,4 +1,4 @@
-package cn.io0288.ExcelTranslateTool.Excel;
+package cn.io0288.ExcelTranslateTool.TranslateApi;
 
 import cn.hutool.crypto.digest.MD5;
 import com.alibaba.fastjson2.JSON;

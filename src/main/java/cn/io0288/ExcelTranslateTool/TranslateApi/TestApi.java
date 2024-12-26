@@ -1,4 +1,4 @@
-package cn.io0288.ExcelTranslateTool.Excel;
+package cn.io0288.ExcelTranslateTool.TranslateApi;
 
 import org.junit.Test;
 

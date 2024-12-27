@@ -8,7 +8,7 @@ public class ExcelTranslateTool {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String fileName = "";
-        fileName = "C:\\Users\\zhang\\OneDrive\\桌面\\tmp.xlsx";
+//        fileName = "C:\\Users\\zhang\\OneDrive\\桌面\\in.xlsx";
 
         boolean flag = true;
         while (flag && fileName.isEmpty()) {

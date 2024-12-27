@@ -13,8 +13,8 @@ import org.springframework.util.MultiValueMap;
 @Slf4j
 public class BaiduTranslateApi {
     private static final String TRANS_API_URL = "https://fanyi-api.baidu.com/api/trans/vip/translate";
-    private static final String APP_ID = "20190722000320285";
-    private static final String SECRET_KEY = "tBFOaXGIaXLb0eZ1GGzY";
+    private static final String APP_ID = Env.APP_ID;
+    private static final String SECRET_KEY = Env.SECRET_KEY;
 
     public static String run(String query){
         return run(query, "en", "zh");

@@ -36,3 +36,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+/src/main/java/cn/io0288/ExcelTranslateTool/TranslateApi/Env.java
